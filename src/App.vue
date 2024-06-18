@@ -163,7 +163,11 @@
                 {{ getSenderName(message) }}
                 <time class="text-xs opacity-50">{{ message.time }}</time>
               </div>
-              <div class="chat-bubble" :class="{ 'bg-slate-600': message.role === 'user' }">
+              <div
+                class="chat-bubble"
+                :class="{ 'bg-slate-600': message.role === 'bot' }"
+                :ref="'lastMessage'"
+              >
                 <p>{{ message.text }}</p>
                 <a class="text-red-400" :href="message.config?.links[0]?.url || ''">{{
                   message.config?.links[0]?.text || ''
@@ -175,9 +179,10 @@
 
         <div class="flex justify-around items-center bg-slate-500">
           <div
-            v-for="button in conversation.messages[conversation.messages.length - 1].config
+            v-for="(button, index) in conversation.messages[conversation.messages.length - 1].config
               ?.buttons"
             :key="button.text"
+            :ref="index === conversation.messages.length - 1 ? 'lastMessage' : ''"
             class=""
           >
             <div
@@ -266,12 +271,6 @@ interface Message {
       text?: string
     }[]
   }
-}
-
-interface Recipe {
-  id: number
-  name: string
-  text: string
 }
 
 interface Conversation {
@@ -398,6 +397,46 @@ const scrollToBottom = () => {
   })
 }
 
+// added funtion to handle button clicks
+const handleButtonClick = (message: string) => {
+  const hour = new Date().toLocaleString().split(', ')[1]
+  const newMessage = {
+    id: conversation.value.messages.length,
+    text: message,
+    time: hour,
+    userName: '',
+    role: 'user',
+    type: 'text'
+  }
+  conversation.value.messages.push(newMessage)
+  scrollToBottom()
+  if (newMessage.text === 'Tortilla de patatas') {
+    const messageBot = {
+      id: conversation.value.messages.length,
+      text: recipe.value.info[0].text,
+      time: hour,
+      userName: '',
+      role: 'bot',
+      type: 'text'
+    }
+    conversation.value.messages.push(messageBot)
+    scrollToBottom()
+  }
+  if (newMessage.text === 'Cordero al horno') {
+    const messageBot = {
+      id: conversation.value.messages.length,
+      text: 'El cordero al horno se hace asi',
+      time: hour,
+      userName: '',
+      role: 'bot',
+      type: 'text'
+    }
+    conversation.value.messages.push(messageBot)
+    scrollToBottom()
+  }
+  scrollToBottom()
+}
+
 const sendMessage = () => {
   const hour = new Date().toLocaleString().split(', ')[1]
 
@@ -500,6 +539,7 @@ const sendMessage = () => {
       conversationText.value = ''
     }
   }
+  scrollToBottom()
 }
 
 const recipe = ref({
@@ -514,46 +554,6 @@ const recipe = ref({
     }
   ]
 })
-
-// added funtion to handle button clicks
-const handleButtonClick = (message: string) => {
-  const hour = new Date().toLocaleString().split(', ')[1]
-  const newMessage = {
-    id: conversation.value.messages.length,
-    text: message,
-    time: hour,
-    userName: '',
-    role: 'user',
-    type: 'text'
-  }
-  conversation.value.messages.push(newMessage)
-  scrollToBottom()
-  if (newMessage.text === 'Tortilla de patatas') {
-    const messageBot = {
-      id: conversation.value.messages.length,
-      text: recipe.value.info[0].text,
-      time: hour,
-      userName: '',
-      role: 'bot',
-      type: 'text'
-    }
-    conversation.value.messages.push(messageBot)
-    scrollToBottom()
-  }
-  if (newMessage.text === 'Cordero al horno') {
-    const messageBot = {
-      id: conversation.value.messages.length,
-      text: 'El cordero al horno se hace asi',
-      time: hour,
-      userName: '',
-      role: 'bot',
-      type: 'text'
-    }
-    conversation.value.messages.push(messageBot)
-    scrollToBottom()
-  }
-  scrollToBottom()
-}
 </script>
 
 <style scoped></style>
