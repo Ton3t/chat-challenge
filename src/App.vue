@@ -182,7 +182,7 @@
             <div
               class="chat"
               :class="{ 'chat-start': message.role === 'user', 'chat-end': message.role === 'bot' }"
-              v-if="message.type === 'card'"
+              v-if="message.type === 'cards'"
             >
               <div class="chat-image avatar">
                 <div class="w-10 rounded-full">
@@ -195,14 +195,16 @@
                 <time class="text-xs opacity-50">{{ message.time }}</time>
               </div>
               <div class="chat-bubble" :class="{ 'bg-slate-600': message.role === 'user' }">
-                <h2 class="text-2xl">{{ message.config?.cards[0].text }}</h2>
+                <h2 class="text-2xl">
+                  {{ message.config?.cards[0].text ?? 'Mensaje de la tarjeta' }}
+                </h2>
                 <img
-                  class="mt-2 mb-2"
-                  :src="message.config?.cards[0].img.url ?? ''"
-                  :alt="message.config?.cards[0].img.alt ?? ''"
+                  class="mt-2 mb-2 rounded-sm"
+                  :src="message.config?.cards[0].img?.url"
+                  :alt="message.config?.cards[0].img?.alt"
                 />
                 <p>{{ message.text }}</p>
-                <a class="text-red-400" :href="message.config.cards[0].links[0].url">Link</a>
+                <a class="text-red-400" :href="message.config?.cards[0].links[0].url">Link</a>
               </div>
             </div>
           </div>
@@ -268,6 +270,7 @@
 </template>
 
 <script setup lang="ts">
+import { url } from 'inspector'
 import { ref, nextTick } from 'vue'
 
 const open = ref(false)
@@ -302,12 +305,12 @@ interface Message {
       text?: string
     }[]
     cards?: {
-      text: string
-      img: {
+      text?: string
+      img?: {
         url: string
         alt: string
       }
-      links: {
+      links?: {
         url: string
         text: string
       }
@@ -421,7 +424,7 @@ const conversation = ref({
       time: '12:47:00',
       userName: '',
       role: 'bot',
-      type: 'card',
+      type: 'cards',
       config: {
         cards: [
           {
@@ -532,7 +535,7 @@ const sendMessage = () => {
     }
     conversation.value.messages.push(messageObject)
 
-    let x = getRandomInt(4)
+    let x = getRandomInt(5)
 
     if (x === 0) {
       const messageBot = {
@@ -609,7 +612,34 @@ const sendMessage = () => {
       conversation.value.messages.push(messageBot)
       conversationText.value = ''
     }
-    scrollToBottom()
+
+    if (x === 4) {
+      const messageBot = {
+        id: conversation.value.messages.length,
+        text: 'Aqui tienes el pequeño texto de la tarjeta',
+        time: hour,
+        userName: conversation.value.bot.userName,
+        role: 'bot',
+        type: 'cards',
+        config: {
+          cards: [
+            {
+              text: 'Tortilla de patatas',
+              img: {
+                url: 'http://localhost:5173/botImg.webp',
+                alt: 'Tortilla de patatas'
+              },
+              links: {
+                url: 'https://chat-toneti.netlify.app/',
+                text: 'Link proyecto'
+              }
+            }
+          ]
+        }
+      }
+      conversation.value.messages.push(messageBot)
+      conversationText.value = ''
+    }
   }
 }
 
