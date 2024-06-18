@@ -149,10 +149,27 @@
             </div>
 
             <div
-              v-for="link in conversation.messages[conversation.messages.length - 1].config?.links"
-              :key="link.text"
-              class=""
-            ></div>
+              class="chat"
+              :class="{ 'chat-start': message.role === 'user', 'chat-end': message.role === 'bot' }"
+              v-if="message.type === 'link'"
+            >
+              <div class="chat-image avatar">
+                <div class="w-10 rounded-full">
+                  <img v-if="message.role === 'bot'" alt="botImg" :src="getSenderImg(message)" />
+                  <img v-else alt="userImg" :src="getSenderImg(message)" />
+                </div>
+              </div>
+              <div class="chat-header m-2">
+                {{ getSenderName(message) }}
+                <time class="text-xs opacity-50">{{ message.time }}</time>
+              </div>
+              <div class="chat-bubble" :class="{ 'bg-slate-600': message.role === 'user' }">
+                <p>{{ message.text }}</p>
+                <a class="text-red-400" :href="message.config?.links[0]?.url || ''">{{
+                  message.config?.links[0]?.text || ''
+                }}</a>
+              </div>
+            </div>
           </div>
         </main>
 
@@ -440,11 +457,19 @@ const sendMessage = () => {
     if (x === 2) {
       const messageBot = {
         id: conversation.value.messages.length,
-        text: 'Link',
+        text: 'Aquí tienes el link de la receta',
         time: hour,
         userName: conversation.value.bot.userName,
         role: 'bot',
-        type: 'link'
+        type: 'link',
+        config: {
+          links: [
+            {
+              url: 'https://chat-toneti.netlify.app/',
+              text: 'La receta'
+            }
+          ]
+        }
       }
       conversation.value.messages.push(messageBot)
       conversationText.value = ''
