@@ -147,6 +147,12 @@
                 {{ message.text }}
               </div>
             </div>
+
+            <div
+              v-for="link in conversation.messages[conversation.messages.length - 1].config?.links"
+              :key="link.text"
+              class=""
+            ></div>
           </div>
         </main>
 
@@ -155,6 +161,7 @@
             v-for="button in conversation.messages[conversation.messages.length - 1].config
               ?.buttons"
             :key="button.text"
+            class=""
           >
             <div
               class="btn btn-xs sm:btn-sm md:btn-md btn-active m-2"
@@ -220,7 +227,6 @@ interface Bot {
   id: number
   userName: string
   img: string
-  avatar: string
   welcomeMessage: string
 }
 
@@ -232,12 +238,15 @@ interface Message {
   role: string
   type: string
   config?: {
-    link?: string
     url?: string
     alt?: string
     buttons?: {
       text: string
       message: string
+    }[]
+    links?: {
+      url?: string
+      text?: string
     }[]
   }
 }
@@ -267,14 +276,13 @@ const conversation = ref({
   bot: {
     id: 0,
     userName: 'Jonh Bot',
-    img: '../src/assets/data/botImg.webp',
-    avatar: './src/assets/data/botImg.webp',
+    img: './src/assets/data/botImg.webp',
     welcomeMessage: 'Bienvenido, soy un asistente de cocina'
   },
   user: {
     id: 1,
     userName: 'El lobo feróz',
-    img: '../src/assets/data/userImg.webp'
+    img: './src/assets/data/userImg.webp'
   },
   messages: [
     {
@@ -299,6 +307,30 @@ const conversation = ref({
     },
     {
       id: 2,
+      text: '¿Me puedes pasar un link del plato?',
+      time: '12:46:30',
+      userName: '',
+      role: 'user',
+      type: 'text'
+    },
+    {
+      id: 3,
+      text: 'Claro aquí tienes un link con la receta',
+      time: '12:46:32',
+      userName: '',
+      role: 'bot',
+      type: 'link',
+      config: {
+        links: [
+          {
+            url: 'https://chat-toneti.netlify.app/',
+            text: 'La receta'
+          }
+        ]
+      }
+    },
+    {
+      id: 4,
       text: 'Cual es tu pregunta... porque tengo muchas recetas en mi cabeza',
       time: '12:46:28',
       userName: '',
@@ -316,25 +348,6 @@ const conversation = ref({
           }
         ]
       }
-    },
-    {
-      id: 3,
-      text: '¿Me puedes pasar un link del plato?',
-      time: '12:46:30',
-      userName: '',
-      role: 'user',
-      type: 'text'
-    },
-    {
-      id: 4,
-      text: 'Claro aquí tienes un link con la receta',
-      time: '12:46:32',
-      userName: '',
-      role: 'bot',
-      type: 'link',
-      config: {
-        link: 'http://localhost:5173/botImg.webp'
-      }
     }
   ]
 } as Conversation)
@@ -349,7 +362,7 @@ const getSenderName = (messageObject: Message) => {
 
 const getSenderImg = (messageObject: Message) => {
   if (messageObject.role === 'bot') {
-    return conversation.value.bot.avatar
+    return conversation.value.bot.img
   } else {
     return conversation.value.user.img
   }
