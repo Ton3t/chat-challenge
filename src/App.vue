@@ -18,8 +18,8 @@
           <img
             class="rounded-full"
             :class="{ flex: !open, hidden: open }"
-            :src="conversation.bot.img"
-            alt="Imagen del bot"
+            :src="conversation.bot.img ?? ''"
+            :alt="conversation.bot.userName ?? 'Imagen del bot'"
           />
         </div>
       </button>
@@ -50,7 +50,11 @@
               </svg>
             </button>
             <div class="bot flex items-center ml-2">
-              <img class="size-12 rounded-full" :src="conversation.bot.img" alt="" />
+              <img
+                class="size-12 rounded-full"
+                :src="conversation.bot.img"
+                :alt="conversation.bot.userName + ' imagen, avatar' ?? 'imagen del bot'"
+              />
               <span class="ml-2">{{ conversation.bot.userName }}</span>
             </div>
           </div>
@@ -169,9 +173,36 @@
                 :ref="'lastMessage'"
               >
                 <p>{{ message.text }}</p>
-                <a class="text-red-400" :href="message.config?.links[0]?.url || ''">{{
-                  message.config?.links[0]?.text || ''
+                <a class="text-red-400" :href="message.config?.links[0]?.url ?? ''">{{
+                  message.config?.links[0]?.text ?? ''
                 }}</a>
+              </div>
+            </div>
+
+            <div
+              class="chat"
+              :class="{ 'chat-start': message.role === 'user', 'chat-end': message.role === 'bot' }"
+              v-if="message.type === 'card'"
+            >
+              <div class="chat-image avatar">
+                <div class="w-10 rounded-full">
+                  <img v-if="message.role === 'bot'" alt="botImg" :src="getSenderImg(message)" />
+                  <img v-else alt="userImg" :src="getSenderImg(message)" />
+                </div>
+              </div>
+              <div class="chat-header m-2">
+                {{ getSenderName(message) }}
+                <time class="text-xs opacity-50">{{ message.time }}</time>
+              </div>
+              <div class="chat-bubble" :class="{ 'bg-slate-600': message.role === 'user' }">
+                <h2 class="text-2xl">{{ message.config?.cards[0].text }}</h2>
+                <img
+                  class="mt-2 mb-2"
+                  :src="message.config?.cards[0].img.url ?? ''"
+                  :alt="message.config?.cards[0].img.alt ?? ''"
+                />
+                <p>{{ message.text }}</p>
+                <a class="text-red-400" :href="message.config.cards[0].links[0].url">Link</a>
               </div>
             </div>
           </div>
@@ -270,6 +301,17 @@ interface Message {
       url?: string
       text?: string
     }[]
+    cards?: {
+      text: string
+      img: {
+        url: string
+        alt: string
+      }
+      links: {
+        url: string
+        text: string
+      }
+    }[]
   }
 }
 
@@ -364,6 +406,38 @@ const conversation = ref({
           }
         ]
       }
+    },
+    {
+      id: 5,
+      text: 'Pasame una tarjeta',
+      time: '12:46:50',
+      userName: '',
+      role: 'user',
+      type: 'text'
+    },
+    {
+      id: 6,
+      text: 'Esto es un mensaje de tipo tarjeta',
+      time: '12:47:00',
+      userName: '',
+      role: 'bot',
+      type: 'card',
+      config: {
+        cards: [
+          {
+            text: 'Tortilla de patatas',
+            img: {
+              url: 'http://localhost:5173/botImg.webp',
+              alt: 'Tortilla de patatas'
+            },
+            links: [
+              {
+                url: 'https://chat-toneti.netlify.app/'
+              }
+            ]
+          }
+        ]
+      }
     }
   ]
 } as Conversation)
@@ -409,7 +483,6 @@ const handleButtonClick = (message: string) => {
     type: 'text'
   }
   conversation.value.messages.push(newMessage)
-  scrollToBottom()
   if (newMessage.text === 'Tortilla de patatas') {
     const messageBot = {
       id: conversation.value.messages.length,
@@ -420,7 +493,6 @@ const handleButtonClick = (message: string) => {
       type: 'text'
     }
     conversation.value.messages.push(messageBot)
-    scrollToBottom()
   }
   if (newMessage.text === 'Cordero al horno') {
     const messageBot = {
@@ -432,7 +504,6 @@ const handleButtonClick = (message: string) => {
       type: 'text'
     }
     conversation.value.messages.push(messageBot)
-    scrollToBottom()
   }
   scrollToBottom()
 }
@@ -538,8 +609,8 @@ const sendMessage = () => {
       conversation.value.messages.push(messageBot)
       conversationText.value = ''
     }
+    scrollToBottom()
   }
-  scrollToBottom()
 }
 
 const recipe = ref({
