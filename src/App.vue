@@ -173,9 +173,7 @@
                 :ref="'lastMessage'"
               >
                 <p>{{ message.text }}</p>
-                <a class="text-red-400" :href="message.config?.links[0]?.url ?? ''">{{
-                  message.config?.links[0]?.text ?? ''
-                }}</a>
+                <a class="text-red-400"></a>
               </div>
             </div>
 
@@ -195,16 +193,10 @@
                 <time class="text-xs opacity-50">{{ message.time }}</time>
               </div>
               <div class="chat-bubble" :class="{ 'bg-slate-600': message.role === 'user' }">
-                <h2 class="text-2xl">
-                  {{ message.config?.cards[0].text ?? 'Mensaje de la tarjeta' }}
-                </h2>
-                <img
-                  class="mt-2 mb-2 rounded-sm"
-                  :src="message.config?.cards[0].img?.url"
-                  :alt="message.config?.cards[0].img?.alt"
-                />
+                <h2 class="text-2xl">{{ message.config?.cards[0].text }}</h2>
+                <img class="mt-2 mb-2 rounded-sm" :src="message.config?.cards[0].img.url ?? ''" />
                 <p>{{ message.text }}</p>
-                <a class="text-red-400" :href="message.config?.cards[0].links[0].url">Link</a>
+                <a class="text-red-400" :href="message.config?.cards[0].links?.url ?? ''">link</a>
               </div>
             </div>
           </div>
@@ -270,7 +262,6 @@
 </template>
 
 <script setup lang="ts">
-import { url } from 'inspector'
 import { ref, nextTick } from 'vue'
 
 const open = ref(false)
@@ -354,7 +345,7 @@ const conversation = ref({
       role: 'bot',
       type: 'image',
       config: {
-        url: 'http://localhost:5173/botImg.webp',
+        url: './src/assets/data/botImg.webp',
         alt: 'descripcion de esta imagen'
       }
     },
