@@ -1,6 +1,198 @@
 <template>
   <!--general web-->
-  <div class="web">
+  <div class="web text-white">
+    <div class="navbar bg-base-100">
+      <div class="flex-1">
+        <a class="btn btn-ghost text-xl">Chat-Challenge | 1millionbot</a>
+      </div>
+      <div class="flex-none">
+        <ul class="menu menu-horizontal px-1">
+          <li><a>Link</a></li>
+          <li><a>Link</a></li>
+          <li><a>Link</a></li>
+          <li><a>Link</a></li>
+          <li>
+            <details>
+              <summary>Parent</summary>
+              <ul class="p-2 bg-base-100 rounded-t-none">
+                <li><a>Link 1</a></li>
+                <li><a>Link 2</a></li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <section class="text-white-600 body-font">
+      <div class="container px-5 py-24 mx-auto">
+        <div class="flex flex-col text-center w-full mb-20">
+          <h2 class="text-xs text-indigo-500 tracking-widest font-medium title-font mb-1">
+            ROOF PARTY POLAROID
+          </h2>
+          <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-white-100">
+            Master Cleanse Reliac Heirloom
+          </h1>
+          <p class="lg:w-2/3 mx-auto leading-relaxed text-base text-white">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Harum voluptatem quo eos,
+            placeat ducimus voluptates, similique sequi quam, obcaecati expedita sunt! Facilis
+            error, incidunt fugiat perspiciatis praesentium facere temporibus laudantium.
+          </p>
+        </div>
+        <div class="flex flex-wrap">
+          <div
+            class="xl:w-1/4 lg:w-1/2 md:w-full px-8 py-6 border-l-2 border-gray-200 border-opacity-60"
+          >
+            <h2 class="text-lg sm:text-xl text-gray-900 font-medium title-font mb-2">
+              Shooting Stars
+            </h2>
+            <p class="leading-relaxed text-base mb-4">
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Harum voluptatem quo eos,
+              placeat ducimus voluptates, similique sequi quam, obcaecati expedita sunt! Facilis
+              error, incidunt fugiat perspiciatis praesentium facere temporibus laudantium.
+            </p>
+            <a class="text-indigo-500 inline-flex items-center"
+              >Learn More
+              <svg
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                class="w-4 h-4 ml-2"
+                viewBox="0 0 24 24"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7"></path>
+              </svg>
+            </a>
+          </div>
+          <div
+            class="xl:w-1/4 lg:w-1/2 md:w-full px-8 py-6 border-l-2 border-gray-200 border-opacity-60"
+          >
+            <h2 class="text-lg sm:text-xl text-gray-900 font-medium title-font mb-2">
+              The Catalyzer
+            </h2>
+            <p class="leading-relaxed text-base mb-4">
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Harum voluptatem quo eos,
+              placeat ducimus voluptates, similique sequi quam, obcaecati expedita sunt! Facilis
+              error, incidunt fugiat perspiciatis praesentium facere temporibus laudantium.
+            </p>
+            <a class="text-indigo-500 inline-flex items-center"
+              >Learn More
+              <svg
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                class="w-4 h-4 ml-2"
+                viewBox="0 0 24 24"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7"></path>
+              </svg>
+            </a>
+          </div>
+          <div
+            class="xl:w-1/4 lg:w-1/2 md:w-full px-8 py-6 border-l-2 border-gray-200 border-opacity-60"
+          >
+            <h2 class="text-lg sm:text-xl text-gray-900 font-medium title-font mb-2">Neptune</h2>
+            <p class="leading-relaxed text-base mb-4">
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Harum voluptatem quo eos,
+              placeat ducimus voluptates, similique sequi quam, obcaecati expedita sunt! Facilis
+              error, incidunt fugiat perspiciatis praesentium facere temporibus laudantium.
+            </p>
+            <a class="text-indigo-500 inline-flex items-center"
+              >Learn More
+              <svg
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                class="w-4 h-4 ml-2"
+                viewBox="0 0 24 24"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7"></path>
+              </svg>
+            </a>
+          </div>
+          <div
+            class="xl:w-1/4 lg:w-1/2 md:w-full px-8 py-6 border-l-2 border-gray-200 border-opacity-60"
+          >
+            <h2 class="text-lg sm:text-xl text-gray-900 font-medium title-font mb-2">Melanchole</h2>
+            <p class="leading-relaxed text-base mb-4">
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Harum voluptatem quo eos,
+              placeat ducimus voluptates, similique sequi quam, obcaecati expedita sunt! Facilis
+              error, incidunt fugiat perspiciatis praesentium facere temporibus laudantium.
+            </p>
+            <a class="text-indigo-500 inline-flex items-center"
+              >Learn More
+              <svg
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                class="w-4 h-4 ml-2"
+                viewBox="0 0 24 24"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+        <footer class="text-white body-font">
+          <div
+            class="container px-5 py-24 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col"
+          >
+            <div class="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left">
+              <a class="flex title-font font-medium items-center md:justify-start justify-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                </svg>
+                <span class="ml-3 text-xl">Tailblocks</span>
+              </a>
+              <p class="mt-2 text-sm">Air plant banjo lyft occupy retro adaptogen indego</p>
+            </div>
+            <div
+              class="flex-grow flex flex-wrap md:pl-20 -mb-10 md:mt-0 mt-10 md:text-left text-center"
+            >
+              <div class="lg:w-1/4 md:w-1/2 w-full px-4">
+                <h2 class="title-font font-medium tracking-widest text-sm mb-3">CATEGORIES</h2>
+                <nav class="list-none mb-10">
+                  <li>
+                    <a class="hover:text-gray-100">First Link</a>
+                  </li>
+                  <li>
+                    <a class="hover:text-gray-100">Second Link</a>
+                  </li>
+                  <li>
+                    <a class="hover:text-gray-100">Third Link</a>
+                  </li>
+                  <li>
+                    <a class="hover:text-gray-100">Fourth Link</a>
+                  </li>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </footer>
+        <button
+          class="flex mx-auto mt-16 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"
+        >
+          Button
+        </button>
+      </div>
+    </section>
     <button>Boton</button>
   </div>
   <div class="w-screen h-screen bg-black bg-opacity-50 fixed top-0 left-0 pointer-events-none">
@@ -28,7 +220,7 @@
     <!-- chat box -->
     <div class="h-full w-full" :class="{ flex: open, hidden: !open }">
       <div
-        class="flex flex-col w-96 h-full absolute top-0 right-0 pointer-events-auto border-2 border-slate-800 resize- overflow-auto"
+        class="flex flex-col w-96 h-[80vh] absolute top-0 right-0 pointer-events-auto border-2 border-slate-800 overflow-auto mt-12 mr-5"
       >
         <header class="bg-red-500 text-red-50 w-full flex justify-between items-center p-1">
           <div class="flex-grow flex items-center">
