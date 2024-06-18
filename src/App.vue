@@ -220,6 +220,7 @@ interface Bot {
   id: number
   userName: string
   img: string
+  avatar: string
   welcomeMessage: string
 }
 
@@ -266,13 +267,14 @@ const conversation = ref({
   bot: {
     id: 0,
     userName: 'Jonh Bot',
-    img: './src/assets/data/botImg.webp',
+    img: '../src/assets/data/botImg.webp',
+    avatar: './src/assets/data/botImg.webp',
     welcomeMessage: 'Bienvenido, soy un asistente de cocina'
   },
   user: {
     id: 1,
     userName: 'El lobo feróz',
-    img: './src/assets/data/userImg.webp'
+    img: '../src/assets/data/userImg.webp'
   },
   messages: [
     {
@@ -347,7 +349,7 @@ const getSenderName = (messageObject: Message) => {
 
 const getSenderImg = (messageObject: Message) => {
   if (messageObject.role === 'bot') {
-    return conversation.value.bot.img
+    return conversation.value.bot.avatar
   } else {
     return conversation.value.user.img
   }
@@ -467,7 +469,10 @@ const recipe = ref({
     {
       id: 0,
       name: 'tortilla de patatas',
-      text: `Hola` + '\r\nhola'
+      text: `Para hacer una buena tortilla de patatas a la española debes de seguir los siguientes pasos:
+      1. Tal.
+      2. Pascual
+      3. Servir.`
     }
   ]
 })
