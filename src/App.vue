@@ -173,7 +173,7 @@
                 :ref="'lastMessage'"
               >
                 <p>{{ message.text }}</p>
-                <a class="text-red-400"></a>
+                <a class="text-red-400" :href="message.config?.links[0].url ?? ''">link</a>
               </div>
             </div>
 
@@ -328,7 +328,7 @@ const conversation = ref({
   bot: {
     id: 0,
     userName: 'Jonh Bot',
-    img: './src/assets/data/botImg.webp',
+    img: './public/botImg.webp',
     welcomeMessage: 'Bienvenido, soy un asistente de cocina'
   },
   user: {
