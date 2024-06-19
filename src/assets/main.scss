@@ -1,7 +1,6 @@
+@import 'normalize-scss';
+@include normalize();
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import 'normalize-scss';
-
-@include normalize();
