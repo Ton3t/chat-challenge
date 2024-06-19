@@ -220,7 +220,7 @@
     <!-- chat box -->
     <div class="h-full w-full" :class="{ flex: open, hidden: !open }">
       <div
-        class="flex flex-col w-96 h-[80vh] absolute top-0 right-0 pointer-events-auto overflow-auto mt-12 mr-5 rounded-2xl"
+        class="flex flex-col sm:w-96 sm:h-[70vh] w-[95.9vw] mt-0 h-full absolute top-0 right-0 pointer-events-auto overflow-auto sm:mt-12 mr-5 rounded-2xl"
       >
         <header class="text-red-50 w-full flex justify-between items-center p-1 red-1millionBot">
           <div class="flex-grow flex items-center">
