@@ -520,13 +520,13 @@ const conversation = ref({
   bot: {
     id: 0,
     userName: 'Jonh Bot',
-    img: './public/botImg.webp',
+    img: '/botImg.webp',
     welcomeMessage: 'Bienvenido, soy un asistente de cocina'
   },
   user: {
     id: 1,
     userName: 'El lobo feróz',
-    img: './src/assets/data/userImg.webp'
+    img: '/userImg.webp'
   },
   messages: [
     {
@@ -537,7 +537,7 @@ const conversation = ref({
       role: 'bot',
       type: 'image',
       config: {
-        url: './src/assets/data/botImg.webp',
+        url: '/botImg.webp',
         alt: 'descripcion de esta imagen'
       }
     },
@@ -613,7 +613,7 @@ const conversation = ref({
           {
             text: 'Tortilla de patatas',
             img: {
-              url: 'http://localhost:5173/botImg.webp',
+              url: '/botImg.webp',
               alt: 'Tortilla de patatas'
             },
             links: [
@@ -742,7 +742,7 @@ const sendMessage = () => {
         role: 'bot',
         type: 'image',
         config: {
-          url: 'http://localhost:5173/botImg.webp',
+          url: '/assets/images/botImg.webp',
           alt: 'descripcion de esta imagen'
         }
       }
@@ -809,7 +809,7 @@ const sendMessage = () => {
             {
               text: 'Tortilla de patatas',
               img: {
-                url: 'http://localhost:5173/botImg.webp',
+                url: '/assets/images/botImg.webp',
                 alt: 'Tortilla de patatas'
               },
               links: {
