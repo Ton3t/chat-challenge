@@ -220,7 +220,7 @@
     <!-- chat box -->
     <div class="h-full w-full" :class="{ flex: open, hidden: !open }">
       <div
-        class="flex flex-col sm:w-96 sm:h-[70vh] w-[95.9vw] mt-0 h-full absolute top-0 right-0 pointer-events-auto overflow-auto sm:mt-12 mr-5 rounded-2xl"
+        class="flex flex-col lg:w-96 lg:h-[70vh] w-[100vw] mt-0 h-full absolute lg:top-0 lg:right-0 pointer-events-auto overflow-auto lg:mt-12 mr-5 rounded-2xl"
       >
         <header class="text-red-50 w-full flex justify-between items-center p-1 red-1millionBot">
           <div class="flex-grow flex items-center">
@@ -355,7 +355,7 @@
                 {{ getSenderName(message) }}
                 <time class="text-xs opacity-50">{{ message.time }}</time>
               </div>
-              <div class="chat-bubble" :class="{ 'bg-slate-600': message.role === 'bot' }">
+              <div class="chat-bubble">
                 <p>{{ message.text }}</p>
                 <a
                   v-for="link in message.config?.links ?? []"
@@ -382,17 +382,30 @@
                 {{ getSenderName(message) }}
                 <time class="text-xs opacity-50">{{ message.time }}</time>
               </div>
-              <div
-                v-for="card in message.config?.cards ?? []"
-                :key="card.text"
-                class="chat-bubble"
-                :class="{ 'bg-slate-600': message.role === 'user' }"
-              >
-                <h2 class="text-2xl">{{ card.text }}</h2>
-
-                <img class="mt-2 mb-2 rounded-sm" :src="card.img?.url" />
-                <p>{{ message.text }}</p>
-                <a class="text-red-400" :href="card.links?.url">{{ card.links?.text }}</a>
+              <div class="chat-bubble">
+                <div class="carousel w-full">
+                  <div
+                    v-for="card in message.config?.cards"
+                    :key="card.text"
+                    class="carousel-item w-full mt-2 flex"
+                  >
+                    <img :id="card.img?.url" :src="card.img?.url" class="w-full rounded-sm" />
+                  </div>
+                </div>
+                <div
+                  v-for="(card, index) in message.config?.cards"
+                  :key="card.text"
+                  class="flex justify-center w-full py-2 gap-2"
+                >
+                  <a :href="'#' + card.img?.url" class="btn btn-xs flex gap-2">{{ index + 1 }}</a>
+                </div>
+                <div
+                  v-for="card in message.config?.cards"
+                  :key="card.text"
+                  class="flex justify-center w-full"
+                >
+                  <p>{{ card.text }}</p>
+                </div>
               </div>
             </div>
           </div>
@@ -620,6 +633,18 @@ const conversation = ref({
             img: {
               url: '/botImg.webp',
               alt: 'Tortilla de patatas'
+            },
+            links: [
+              {
+                url: 'https://chat-toneti.netlify.app/'
+              }
+            ]
+          },
+          {
+            text: 'Cordero al horno',
+            img: {
+              url: '/userImg.webp',
+              alt: 'Cordero al horno'
             },
             links: [
               {
