@@ -193,8 +193,8 @@
         </button>
       </div>
     </section>
-    <button>Boton</button>
   </div>
+
   <div class="w-screen h-screen bg-black bg-opacity-50 fixed top-0 left-0 pointer-events-none">
     <div class="text-white">
       <button
@@ -220,7 +220,7 @@
     <!-- chat box -->
     <div class="h-full w-full" :class="{ flex: open, hidden: !open }">
       <div
-        class="flex flex-col w-96 h-[80vh] absolute top-0 right-0 pointer-events-auto border-2 border-slate-800 overflow-auto mt-12 mr-5"
+        class="flex flex-col w-96 h-[80vh] absolute top-0 right-0 pointer-events-auto border-2 border-slate-800 overflow-auto mt-12 mr-5 rounded-2xl"
       >
         <header class="bg-red-500 text-red-50 w-full flex justify-between items-center p-1">
           <div class="flex-grow flex items-center">
@@ -840,4 +840,4 @@ const recipe = ref({
 })
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped></style>
