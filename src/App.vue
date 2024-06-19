@@ -220,7 +220,7 @@
     <!-- chat box -->
     <div class="h-full w-full" :class="{ flex: open, hidden: !open }">
       <div
-        class="flex flex-col w-96 h-[80vh] absolute top-0 right-0 pointer-events-auto border-2 border-slate-800 overflow-auto mt-12 mr-5 rounded-2xl"
+        class="flex flex-col w-96 h-[80vh] absolute top-0 right-0 pointer-events-auto overflow-auto mt-12 mr-5 rounded-2xl resize-y"
       >
         <header class="bg-red-500 text-red-50 w-full flex justify-between items-center p-1">
           <div class="flex-grow flex items-center">
@@ -272,12 +272,8 @@
           </button>
         </header>
 
-        <main class="bg-slate-500 flex-grow overflow-auto p-1">
-          <div
-            v-for="(message, index) in conversation.messages"
-            :key="message.id"
-            :ref="index === conversation.messages.length - 1 ? 'lastMessage' : ''"
-          >
+        <main class="bg-slate-500 flex-grow overflow-auto p-1" ref="messagesChat">
+          <div v-for="message in conversation.messages" :key="message.id">
             <div
               class="chat"
               :class="{ 'chat-start': message.role === 'user', 'chat-end': message.role === 'bot' }"
@@ -359,13 +355,15 @@
                 {{ getSenderName(message) }}
                 <time class="text-xs opacity-50">{{ message.time }}</time>
               </div>
-              <div
-                class="chat-bubble"
-                :class="{ 'bg-slate-600': message.role === 'bot' }"
-                :ref="'lastMessage'"
-              >
+              <div class="chat-bubble" :class="{ 'bg-slate-600': message.role === 'bot' }">
                 <p>{{ message.text }}</p>
-                <a class="text-red-400" :href="message.config?.links[0].url ?? ''">link</a>
+                <a
+                  v-for="link in message.config?.links ?? []"
+                  :key="link.url"
+                  class="text-red-400"
+                  :href="link.url"
+                  >link</a
+                >
               </div>
             </div>
 
@@ -384,11 +382,17 @@
                 {{ getSenderName(message) }}
                 <time class="text-xs opacity-50">{{ message.time }}</time>
               </div>
-              <div class="chat-bubble" :class="{ 'bg-slate-600': message.role === 'user' }">
-                <h2 class="text-2xl">{{ message.config?.cards[0].text }}</h2>
-                <img class="mt-2 mb-2 rounded-sm" :src="message.config?.cards[0].img.url ?? ''" />
+              <div
+                v-for="card in message.config?.cards ?? []"
+                :key="card.text"
+                class="chat-bubble"
+                :class="{ 'bg-slate-600': message.role === 'user' }"
+              >
+                <h2 class="text-2xl">{{ card.text }}</h2>
+
+                <img class="mt-2 mb-2 rounded-sm" :src="card.img?.url" />
                 <p>{{ message.text }}</p>
-                <a class="text-red-400" :href="message.config?.cards[0].links?.url ?? ''">link</a>
+                <a class="text-red-400" :href="card.links?.url">{{ card.links?.text }}</a>
               </div>
             </div>
           </div>
@@ -396,11 +400,9 @@
 
         <div class="flex justify-around items-center bg-slate-500">
           <div
-            v-for="(button, index) in conversation.messages[conversation.messages.length - 1].config
+            v-for="button in conversation.messages[conversation.messages.length - 1].config
               ?.buttons"
             :key="button.text"
-            :ref="index === conversation.messages.length - 1 ? 'lastMessage' : ''"
-            class=""
           >
             <div
               class="btn btn-xs sm:btn-sm md:btn-md btn-active m-2"
@@ -423,6 +425,7 @@
             @keyup.enter="sendMessage()"
             autocomplete="off"
             placeholder="Escribe tu pregunta..."
+            ref="inputText"
           />
           <button
             class="h-10 bg-red-400 w-[50px] flex justify-center items-center"
@@ -457,10 +460,10 @@
 import { ref, nextTick } from 'vue'
 
 const open = ref(false)
-
 const conversationText = ref('')
-
 const openChatMenu = ref(false)
+const messagesChat = ref(null as unknown as Element)
+const inputText = ref(Element)
 
 interface Bot {
   id: number
@@ -509,10 +512,12 @@ interface Conversation {
 
 const toggleOpen = () => {
   open.value = !open.value
+  if (open.value === true) {
+    scrollToBottom()
+  }
 }
 
 const toggleMenu = () => {
-  console.log('Boton menu apretado')
   openChatMenu.value = !openChatMenu.value
 }
 
@@ -650,14 +655,17 @@ const getRandomInt = (max: number) => {
 
 const scrollToBottom = () => {
   nextTick(() => {
-    const lastMessage = document.querySelector('.chat:last-child')
-    if (lastMessage) {
-      lastMessage.scrollIntoView({ behavior: 'smooth' })
+    const messageChatComponent = messagesChat.value
+    if (messageChatComponent) {
+      messageChatComponent.scrollTo({
+        top: messageChatComponent.scrollHeight,
+        left: 0,
+        behavior: 'smooth'
+      })
     }
   })
 }
 
-// added funtion to handle button clicks
 const handleButtonClick = (message: string) => {
   const hour = new Date().toLocaleString().split(', ')[1]
   const newMessage = {
@@ -742,7 +750,7 @@ const sendMessage = () => {
         role: 'bot',
         type: 'image',
         config: {
-          url: '/assets/images/botImg.webp',
+          url: '/botImg.webp',
           alt: 'descripcion de esta imagen'
         }
       }
@@ -774,7 +782,7 @@ const sendMessage = () => {
     if (x === 3) {
       const messageBot = {
         id: conversation.value.messages.length,
-        text: '¿Cuál de estas recetas te gustaría hacer?', // QUIERO ENVIAR BOTONES
+        text: '¿Cuál de estas recetas te gustaría hacer?',
         time: hour,
         userName: conversation.value.bot.userName,
         role: 'bot',
@@ -809,7 +817,7 @@ const sendMessage = () => {
             {
               text: 'Tortilla de patatas',
               img: {
-                url: '/assets/images/botImg.webp',
+                url: '/botImg.webp',
                 alt: 'Tortilla de patatas'
               },
               links: {
@@ -824,6 +832,7 @@ const sendMessage = () => {
       conversationText.value = ''
     }
   }
+  scrollToBottom()
 }
 
 const recipe = ref({
