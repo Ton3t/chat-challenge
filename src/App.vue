@@ -202,7 +202,7 @@
         @click="toggleOpen()"
       >
         <div class="chat chat-end" :class="{ flex: !open, hidden: open }">
-          <div class="chat-bubble bg-red-400 text-white">
+          <div class="chat-bubble red-1millionBot text-white">
             {{ conversation.bot.welcomeMessage }}
           </div>
         </div>
@@ -220,9 +220,9 @@
     <!-- chat box -->
     <div class="h-full w-full" :class="{ flex: open, hidden: !open }">
       <div
-        class="flex flex-col w-96 h-[80vh] absolute top-0 right-0 pointer-events-auto overflow-auto mt-12 mr-5 rounded-2xl resize-y"
+        class="flex flex-col w-96 h-[80vh] absolute top-0 right-0 pointer-events-auto overflow-auto mt-12 mr-5 rounded-2xl"
       >
-        <header class="bg-red-500 text-red-50 w-full flex justify-between items-center p-1">
+        <header class="text-red-50 w-full flex justify-between items-center p-1 red-1millionBot">
           <div class="flex-grow flex items-center">
             <button @click="toggleOpen()">
               <svg
@@ -272,7 +272,7 @@
           </button>
         </header>
 
-        <main class="bg-slate-500 flex-grow overflow-auto p-1" ref="messagesChat">
+        <main class="bg-slate-100 flex-grow overflow-auto p-1" ref="messagesChat">
           <div v-for="message in conversation.messages" :key="message.id">
             <div
               class="chat"
@@ -425,10 +425,10 @@
             @keyup.enter="sendMessage()"
             autocomplete="off"
             placeholder="Escribe tu pregunta..."
-            ref="inputText"
+            autofocus="true"
           />
           <button
-            class="h-10 bg-red-400 w-[50px] flex justify-center items-center"
+            class="h-10 w-[50px] flex justify-center items-center red-1millionBot"
             @click="sendMessage()"
           >
             <svg
@@ -441,7 +441,7 @@
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
-              class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-narrow-right bg-red-400"
+              class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-narrow-right red-1millionBot"
             >
               <path stroke="none" d="M0 0h24v24H0z" fill="none" />
               <path d="M5 12l14 0" />
@@ -849,4 +849,8 @@ const recipe = ref({
 })
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.red-1millionBot {
+  background-color: #ef5350;
+}
+</style>
