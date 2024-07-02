@@ -1,10 +1,6 @@
-# isa y toni Casa Rural en la Montaña
+# Chat Challenge
 
-Este es un proyecto para una aplicación de gestión de una casa rural en la montaña.
-
-## Descripción
-
-El proyecto "isa y toni Casa Rural en la Montaña" es una aplicación diseñada para ayudar a gestionar una casa rural ubicada en la montaña. Proporciona funcionalidades para administrar reservas, gestionar clientes, programar actividades y más.
+Este es un proyecto para una aplicación de chat.
 
 ## Instrucciones básicas
 
@@ -34,20 +30,3 @@ Para comenzar a trabajar con este proyecto, sigue estos pasos:
 - TailwindCss
 
 - daisyUI
-
-## 🧞 Commandos
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## Pequeña visualización del proyecto
-
-![Landing Page](image.png)
