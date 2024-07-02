@@ -1,64 +1,53 @@
-# chat-challenge
+# isa y toni Casa Rural en la Montaña
 
-This template should help get you started developing with Vue 3 in Vite.
+Este es un proyecto para una aplicación de gestión de una casa rural en la montaña.
 
-## Recommended IDE Setup
+## Descripción
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+El proyecto "isa y toni Casa Rural en la Montaña" es una aplicación diseñada para ayudar a gestionar una casa rural ubicada en la montaña. Proporciona funcionalidades para administrar reservas, gestionar clientes, programar actividades y más.
 
-## Type Support for `.vue` Imports in TS
+## Instrucciones básicas
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+Para comenzar a trabajar con este proyecto, sigue estos pasos:
 
-## Customize configuration
+1. **Clonar el repositorio:**
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+   ```bash
+   git clone https://github.com/Ton3t/chat-challenge.git
 
-## Project Setup
+   ```
 
-```sh
-npm install
-```
+2. **Instalar dependencias:**
 
-### Compile and Hot-Reload for Development
+   ```bash
+   npm install
 
-```sh
-npm run dev
-```
+   ```
 
-### Type-Check, Compile and Minify for Production
+3. **Ejecutar el servidor en modo desarrollo:**
+   ```bash
+   npm run dev
+   ```
 
-```sh
-npm run build
-```
+## Tecnologías y Bibliotecas
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+- TailwindCss
 
-```sh
-npm run test:unit
-```
+- daisyUI
 
-### Run End-to-End Tests with [Playwright](https://playwright.dev)
+## 🧞 Commandos
 
-```sh
-# Install browsers for the first run
-npx playwright install
+All commands are run from the root of the project, from a terminal:
 
-# When testing on CI, must build the project first
-npm run build
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `npm install`             | Installs dependencies                            |
+| `npm run dev`             | Starts local dev server at `localhost:4321`      |
+| `npm run build`           | Build your production site to `./dist/`          |
+| `npm run preview`         | Preview your build locally, before deploying     |
+| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| `npm run astro -- --help` | Get help using the Astro CLI                     |
 
-# Runs the end-to-end tests
-npm run test:e2e
-# Runs the tests only on Chromium
-npm run test:e2e -- --project=chromium
-# Runs the tests of a specific file
-npm run test:e2e -- tests/example.spec.ts
-# Runs the tests in debug mode
-npm run test:e2e -- --debug
-```
+## Pequeña visualización del proyecto
 
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+![Landing Page](image.png)
